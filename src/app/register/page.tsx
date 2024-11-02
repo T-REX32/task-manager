@@ -1,33 +1,32 @@
-// src/app/page.tsx
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importa o useRouter
-import { auth } from '@/app/firebaseConfig'; 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '@/app/firebaseConfig'; // Importa a configuração do Firebase
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from 'next/navigation'; // Importa o useRouter para redirecionamento
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter(); // Inicializa o router
+  const router = useRouter(); // Usado para redirecionar após o cadastro
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('Login successful');
-      router.push('/tasks'); // Redireciona para a página inicial após login
+      await createUserWithEmailAndPassword(auth, email, password);
+      // Redireciona para a página de login após o registro
+      router.push('/tasks');
     } catch (error: any) {
-      setError("Login failed: " + error.message);
+      setError("Registration failed: " + error.message);
     }
   };
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form onSubmit={handleEmailLogin} className="space-y-4">
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <form onSubmit={handleRegister} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
@@ -46,7 +45,7 @@ export default function LoginPage() {
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
           >
-            Login
+            Register
           </button>
         </form>
         {error && <p className="text-red-500 mt-4">{error}</p>}
