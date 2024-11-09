@@ -26,12 +26,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 min-h-screen flex flex-col`}
-      >
-        <header className="bg-blue-600 text-white p-4">
-          <h1 className="text-2xl font-bold">Task Manager</h1>
-        </header>
+      <body>
+       
         <main className="flex-grow p-8">
           <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow-md">
             {children}
