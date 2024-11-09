@@ -11,14 +11,18 @@ export default function RegisterPage() {
   const [error, setError] = useState('');
   const router = useRouter(); // Usado para redirecionar após o cadastro
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       // Redireciona para a página de login após o registro
       router.push('/tasks');
-    } catch (error: any) {
-      setError("Registration failed: " + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError("Registration failed: " + error.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 
