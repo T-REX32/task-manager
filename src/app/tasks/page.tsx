@@ -83,7 +83,7 @@ const TasksPage = () => {
         />
         <input
           type="text"
-          placeholder="Descrição da tarefa"
+          placeholder="Atividade da tarefa"
           value={newTaskDescription}
           onChange={(e) => setNewTaskDescription(e.target.value)}
           className="p-3 border border-gray-300 rounded-lg w-full sm:w-1/3 focus:outline-none focus:border-indigo-500"
